@@ -8,7 +8,7 @@ if (POLICY CMP0063)
   cmake_policy (SET CMP0063 NEW)
 endif (POLICY CMP0063)
 
-project(glog VERSION 0.4.0 LANGUAGES C CXX)
+project(glog VERSION 0.5.0 LANGUAGES C CXX)
 
 set (CPACK_PACKAGE_NAME glog)
 set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "")
@@ -222,6 +222,12 @@ check_cxx_source_compiles ("
 std::aligned_storage<sizeof(char), alignof(char)>::type data;
 int main() { }
 " HAVE_ALIGNED_STORAGE)
+
+check_cxx_source_compiles ("
+#include <atomic>
+std::atomic<int> i;
+int main() { }
+" HAVE_CXX11_ATOMIC)
 
 if (WITH_TLS)
   # Cygwin does not support the thread attribute. Don't bother.
